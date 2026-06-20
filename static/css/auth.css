@@ -1,0 +1,222 @@
+/* ================= GLOBAL & FONT ================= */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Figtree', sans-serif;
+}
+
+body {
+    background-color: #000000; /* Latar full hitam */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ================= AUTHENTICATION BOX ================= */
+.auth-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-box {
+    background-color: #121212; /* Abu-abu gelap ala Spotify */
+    padding: 50px 60px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 4px 60px rgba(0,0,0,0.5);
+}
+
+.auth-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.auth-logo img {
+    width: 40px;
+    height: 40px;
+}
+
+.auth-logo h2 {
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.auth-box h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 30px;
+    letter-spacing: -1px;
+}
+
+/* ================= FORM & INPUTS ================= */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #b3b3b3;
+    margin-bottom: 8px;
+}
+
+.input-group input {
+    width: 100%;
+    background: #1e1e1e; /* Warna field gelap matte */
+    border: 1px solid transparent;
+    color: white;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: 0.2s;
+    outline: none;
+}
+
+.input-group input:focus {
+    background: #2a2a2a;
+    border: 1px solid #555;
+}
+
+.btn-auth {
+    background-color: #1DB954;
+    color: #000;
+    border: none;
+    padding: 14px;
+    border-radius: 500px; /* Lonjong Spotify */
+    font-weight: 900;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.btn-auth:hover {
+    transform: scale(1.04);
+    background-color: #1ed760;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 30px;
+    color: #b3b3b3;
+    font-size: 14px;
+    border-top: 1px solid #282828;
+    padding-top: 20px;
+}
+
+.auth-footer a {
+    color: #1DB954;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+/* ================= ANIMASI POP UP (DARI KODE LU) ================= */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85); 
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999; 
+    animation: fadeInOverlay 0.3s ease;
+}
+
+.modal-box.popup-card {
+    background: #282828;
+    padding: 30px;
+    border-radius: 12px;
+    width: 320px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+    animation: zoomInModal 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.modal-box.popup-card h2 { font-size: 22px; margin-bottom: 10px; }
+.modal-box.popup-card p { font-size: 14px; color: #b3b3b3; margin-bottom: 0;}
+
+.icon-box { display: flex; justify-content: center; margin-bottom: 20px; }
+
+/* SVG Animations */
+.checkmark, .crossmark {
+  width: 70px; height: 70px; border-radius: 50%; display: block;
+  stroke-width: 2; stroke: #fff; stroke-miterlimit: 10;
+}
+.checkmark__circle, .crossmark__circle {
+  stroke-dasharray: 166; stroke-dashoffset: 166; stroke-width: 2;
+  fill: none; animation: strokeCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+.crossmark { box-shadow: inset 0px 0px 0px #ff4444; animation: fillError 0.4s ease-in-out 0.4s forwards, scaleUp 0.3s ease-in-out 0.9s both; }
+.crossmark__circle { stroke: #ff4444; }
+.checkmark { box-shadow: inset 0px 0px 0px #1DB954; animation: fillSuccess 0.4s ease-in-out 0.4s forwards, scaleUp 0.3s ease-in-out 0.9s both; }
+.checkmark__circle { stroke: #1DB954; }
+
+.crossmark__check, .checkmark__check {
+  transform-origin: 50% 50%; stroke-dasharray: 48; stroke-dashoffset: 48;
+  animation: strokeCircle 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+}
+
+.success-text-inline {
+    color: #1DB954; font-size: 14px; text-align: center; margin: 15px 0;
+    font-weight: bold; animation: slideDown 0.4s ease-out; display: flex;
+    justify-content: center; align-items: center; gap: 8px;
+}
+.dot-pulse {
+    width: 8px; height: 8px; background-color: #1DB954; border-radius: 50%;
+    animation: pulse 1s infinite alternate;
+}
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.btn-modal {
+    background-color: #1DB954;
+    color: #000;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 900;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.btn-modal:hover {
+    transform: scale(1.05);
+    background-color: #1ed760;
+}
+
+.modal-overlay.fade-out { opacity: 0; transition: opacity 0.5s ease; }
+
+@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { from { transform: scale(0.8); opacity: 0.5; } to { transform: scale(1.2); opacity: 1; } }
+@keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
+@keyframes zoomInModal { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+@keyframes strokeCircle { 100% { stroke-dashoffset: 0; } }
+@keyframes fillSuccess { 100% { box-shadow: inset 0px 0px 0px 40px #1DB954; } }
+@keyframes fillError { 100% { box-shadow: inset 0px 0px 0px 40px #ff4444; } }
+@keyframes scaleUp { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }

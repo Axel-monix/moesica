@@ -1,0 +1,42 @@
+===============================================================================
+                       PROPRIETARY & ACADEMIC LICENSE
+===============================================================================
+Project Name : Moesica - Web Music Application
+Version      : 1.0.0 (Masterpiece Edition)
+Copyright (c) 2026 Dessray Angga Tyan Firman Barokah. All Rights Reserved.
+
+Pemegang Hak Cipta yang sah atas source code, struktur database, aset visual, 
+dan seluruh komponen dalam project "Moesica" ini adalah:
+Nama       : Dessray Angga Tyan Firman Barokah
+Kelas / ID : XI RPL 2
+Sekolah    : SMKN 1 SUBANG
+
+-------------------------------------------------------------------------------
+KENTENTUAN PENGGUNAAN (TERBATAS):
+-------------------------------------------------------------------------------
+1. Project ini dibuat dan diserahkan HANYA untuk memenuhi tugas akademik pada 
+   mata pelajaran [Nama Mata Pelajaran] yang diampu oleh [Nama Guru].
+2. Penilai (Guru) diberikan hak penuh untuk memeriksa, menjalankan, dan menilai 
+   project ini demi kepentingan pemberian nilai akademik.
+3. Seluruh pihak ketiga, termasuk namun tidak terbatas pada rekan sejawat, 
+   siswa lain, atau instansi luar, DILARANG KERAS untuk:
+   a. Menyalin (copy-paste) sebagian atau seluruh source code.
+   b. Mendistribusikan ulang project ini tanpa izin tertulis dari pemilik.
+   c. Mengaku-ngaku (klaim) project ini sebagai hasil karyanya sendiri.
+   d. Memodifikasi lalu mengumpulkannya kembali sebagai tugas pribadi.
+
+-------------------------------------------------------------------------------
+SANKSI PLAGIARISME:
+-------------------------------------------------------------------------------
+Segala bentuk pelanggaran terhadap ketentuan di atas (terutama tindakan 
+plagiarisme atau pengakuan sepihak oleh siswa lain) akan langsung dilaporkan 
+kepada Guru Pengampu dan pihak Bimbingan Konseling (BK) sekolah dengan bukti 
+autentik kecocokan kode database dan metadata yang telah ditanam.
+
+Dibuat dengan integritas di Subang, Mei 2026.
+
+Pemilik Hak Cipta,
+
+
+Dessray Angga Tyan Firman Barokah
+===============================================================================

@@ -1,0 +1,1645 @@
+/* ================= GLOBAL & FONTS ================= */
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;700;900&display=swap');
+
+:root {
+    --bg-black: #000000;
+    --bg-dark: #121212;
+    --bg-card: #181818;
+    --bg-hover: #282828;
+    --text-grey: #b3b3b3;
+    --spotify-green: #1DB954;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Figtree', sans-serif;
+}
+
+body {
+    background: var(--bg-black);
+    color: #fff;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: #000;
+    color: white;
+    overflow-x: hidden;
+    /* Biar gak double scroll */
+}
+
+/* ================= LAYOUT 3 KOLOM ================= */
+.container {
+    display: grid;
+    /* Kolom ke-3 (Right Panel) default-nya 0px (tertutup) */
+    grid-template-columns: 280px 1fr 0px;
+    height: calc(100vh - 64px);
+    overflow: hidden;
+    transition: grid-template-columns 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Transisi grid halus */
+}
+
+.container.show-right-panel {
+    /* Otomatis membagi: Sidebar (280px), Main (Sisa Layar), Right Panel (350px) */
+    grid-template-columns: 280px 1fr 350px;
+}
+
+/* ================= SIDEBAR ================= */
+.sidebar {
+    background: var(--bg-dark);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.logo-container img {
+    width: 50px;
+    height: 50px;
+
+    background: #fff;
+    border-radius: 50%;
+
+    padding: 6px;
+    box-sizing: border-box;
+
+    object-fit: cover;
+}
+
+.nav-item {
+    background: transparent;
+    color: var(--text-grey);
+    border: none;
+    padding: 12px;
+    width: 100%;
+    text-align: left;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: 0.3s;
+}
+
+.nav-item:hover {
+    color: #fff;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #282828;
+}
+
+.logout-link {
+    color: var(--text-grey);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.logout-link:hover {
+    color: #ff4444;
+}
+
+/* ================= MAIN CONTENT ================= */
+.main {
+    background: linear-gradient(to bottom, #222, var(--bg-dark) 40%);
+    border-radius: 8px;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+/* Scrollbar Style */
+.main::-webkit-scrollbar {
+    width: 12px;
+}
+
+.main::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* ================= GLOBAL HEADER (SPOTIFY STYLE) ================= */
+.global-header {
+    height: 64px;
+    background: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10000;
+}
+
+.header-left {
+    width: 260px;
+    display: flex;
+    align-items: center;
+}
+
+.header-left .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.header-left .logo-container img {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+}
+
+.header-left .logo-container span {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.header-center {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 600px;
+}
+
+.btn-home-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #1f1f1f;
+    border: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.btn-home-icon:hover {
+    background: #2a2a2a;
+    transform: scale(1.05);
+}
+
+.header-center .search-area {
+    display: flex;
+    align-items: center;
+    background: #1f1f1f;
+    border-radius: 999px;
+    padding: 6px 16px;
+    flex: 1;
+    height: 48px;
+    border: 1px solid transparent;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+}
+
+.header-center .search-area:focus-within {
+    border-color: #fff;
+    background: #2a2a2a;
+}
+
+.header-center .search-area:hover {
+    background: #2a2a2a;
+}
+
+.search-icon-left {
+    color: #b3b3b3;
+    font-size: 18px;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.header-center .search-area input {
+    border: none;
+    background: transparent;
+    outline: none;
+    color: #fff;
+    font-size: 14px;
+    width: 100%;
+}
+
+.header-center .search-area input::placeholder {
+    color: #757575;
+}
+
+.search-divider {
+    color: #3e3e3e;
+    margin: 0 10px;
+    font-weight: 300;
+}
+
+.btn-browse {
+    background: transparent;
+    border: none;
+    color: #b3b3b3;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: color 0.2s;
+}
+
+.btn-browse:hover {
+    color: #fff;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.btn-premium {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-premium:hover {
+    transform: scale(1.05);
+}
+
+.btn-install {
+    background: transparent;
+    color: #fff;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-install:hover {
+    transform: scale(1.05);
+}
+
+.btn-bell {
+    background: transparent;
+    border: none;
+    color: #b3b3b3;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: color 0.2s, transform 0.2s;
+}
+
+.btn-bell:hover {
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.header-right .user-profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background: #1f1f1f;
+    padding: 4px;
+    border-radius: 50%;
+    transition: transform 0.2s;
+    position: static;
+    transform: none;
+}
+
+.header-right .user-profile:hover {
+    transform: scale(1.05);
+}
+
+.header-right .avatar-circle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--spotify-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+}
+
+.search-suggestions {
+    position: absolute;
+    top: 54px;
+    left: 0;
+    width: 100%;
+    background: #181818;
+    border-radius: 8px;
+    padding: 8px;
+    display: none;
+    z-index: 99999;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.suggestion-item {
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.suggestion-item:hover {
+    background: #282828;
+}
+
+#collapsePlayerBtn:hover {
+    color: #fff !important;
+    transform: scale(1.1);
+}
+
+/* Bagian Cover Lagu */
+#expandedCover {
+    width: 450px;
+    /* Gedein covernya */
+    height: 450px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
+    /* Shadow biar 'pop out' */
+    margin-bottom: 20px;
+}
+
+/* Judul Lagu */
+#expandedTitle {
+    font-size: 42px;
+    /* Gedein font judul */
+    font-weight: 900;
+    text-align: center;
+    max-width: 800px;
+}
+
+.expanded-content {
+    display: none;
+    /* Sembunyi pas mini */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#playerBar.expanded {
+    height: 600px;
+    /* Tinggi segini aja, gak sampe full screen */
+    /* bottom tetep 20px, jadi dia membesar ke ARAH ATAS */
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 40px;
+}
+
+/* Sembunyikan elemen mini pas expanded */
+#playerBar.expanded .player-left,
+#playerBar.expanded .player-right,
+#playerBar.expanded .recommend-section {
+    display: none;
+}
+
+/* Konten Utama Expanded */
+.expanded-content {
+    display: none;
+    /* Sembunyi pas mini */
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+#playerBar.expanded .expanded-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    /* Kunci buat judul center */
+}
+
+#expandedCover {
+    width: 320px;
+    /* Lebih gede */
+    height: 320px;
+    border-radius: 20px;
+    object-fit: cover;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    margin-bottom: 25px;
+}
+
+#expandedTitle {
+    font-size: 38px;
+    font-weight: 900;
+    margin: 10px 0 5px 0;
+    width: 100%;
+    display: block;
+    text-align: center;
+}
+
+/* Progress Bar (Melebihi lebar cover) */
+#playerBar.expanded .player-center {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#playerBar.expanded .playback-bar {
+    width: 450px;
+    /* Lebih panjang dari cover (320px) */
+    margin-bottom: 30px;
+}
+
+/* Tombol Control Jadi Gede */
+#playerBar.expanded .control-btns {
+    gap: 40px;
+}
+
+#playerBar.expanded .ctrl-btn {
+    font-size: 32px;
+    /* Prev/Next gede */
+}
+
+#playerBar.expanded .play-btn {
+    width: 85px;
+    /* Play gede */
+    height: 85px;
+    font-size: 35px;
+}
+
+/* Progress Bar (Harus lebih panjang dari cover) */
+#playerBar.expanded .playback-bar {
+    width: 500px;
+    /* Lebih lebar dari cover (350px) */
+    margin-top: 10px;
+}
+
+#playerBar.expanded #progressBar {
+    height: 6px;
+    /* Tebalin dikit biar enak di-klik */
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-close-panel {
+    background: #000;
+    /* Warna hitam */
+    color: #fff;
+    /* Teks putih */
+    border: 1px solid #333;
+    padding: 6px 16px;
+    border-radius: 999px;
+    /* Lonjong kayak pill */
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-close-panel:hover {
+    background: #222;
+    transform: scale(1.05);
+}
+
+/* ================= PLAYER BAR ================= */
+#playerBar {
+    position: fixed;
+    bottom: 20px;
+    /* Jarak dari bawah */
+    left: 50%;
+    transform: translateX(-50%) translateY(150px);
+    /* Sembunyi di bawah */
+
+    width: 90%;
+    max-width: 1100px;
+    height: 80px;
+    /* Tinggi mini */
+
+    background: rgba(20, 20, 20, 0.98);
+    backdrop-filter: blur(20px);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 9999;
+    opacity: 0;
+
+    /* KUNCI: Transisi cuma untuk height, bottom, dan translateY */
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.4s ease;
+}
+
+.expanded-actions {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: var(--spotify-green);
+    transform: scale(1.1);
+    color: black;
+}
+
+/* Biar Progress Bar Pas di Bawah Tombol Actions */
+#playerBar.expanded .player-center {
+    margin-top: 20px;
+}
+
+/* aktif (muncul) */
+#playerBar.active {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+/* LEFT */
+.player-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 30%;
+}
+
+#playerThumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+.track-info {
+    display: flex;
+    flex-direction: column;
+}
+
+#playerTitle {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#playerArtist {
+    font-size: 12px;
+    color: #b3b3b3;
+}
+
+/* CENTER */
+.player-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 40%;
+}
+
+.control-btns {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* tombol kecil */
+.ctrl-btn {
+    color: #b3b3b3;
+    background: none;
+    border: none;
+    font-size: 18px;
+}
+
+.ctrl-btn:hover {
+    color: white;
+    transform: scale(1.2);
+}
+
+#playerBar.expanded {
+    height: 600px;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 40px;
+}
+
+/* sembunyiin layout lama */
+#playerBar.expanded .player-left,
+#playerBar.expanded .player-right {
+    display: none;
+}
+
+/* cover gede */
+.expanded-content {
+    display: none;
+    text-align: center;
+}
+
+#playerBar.expanded .expanded-content {
+    display: block;
+}
+
+#expandedCover {
+    width: 300px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+#expandedTitle {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+#playerBar.expanded .playback-bar {
+    width: 60%;
+}
+
+.rec-item {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.rec-item img {
+    width: 50px;
+    border-radius: 6px;
+}
+
+/* PROGRESS */
+.playback-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.playback-bar span {
+    font-size: 11px;
+    color: #b3b3b3;
+}
+
+#progressBar {
+    flex: 1;
+    height: 4px;
+    accent-color: #1DB954;
+    cursor: pointer;
+}
+
+/* RIGHT */
+.player-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 30%;
+    justify-content: flex-end;
+}
+
+.volume-slider {
+    width: 100px;
+    accent-color: #1DB954;
+}
+
+/* ================= MUSIC GRID & CARDS ================= */
+.music-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+}
+
+.music-card {
+    background: #181818;
+    padding: 16px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.music-card:hover {
+    background: #282828;
+    transform: translateY(-6px);
+}
+
+.img-wrap {
+    position: relative;
+}
+
+.img-wrap img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+/* PLAY BUTTON SPOTIFY STYLE */
+.play-overlay {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #1DB954;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    color: black;
+
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.25s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+}
+
+.music-card:hover .play-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.music-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.music-card p {
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* TOP MIX GRID */
+.top-mix-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.mix-item {
+    background: #282828;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.mix-item:hover {
+    background: #3a3a3a;
+}
+
+.mix-item img {
+    width: 80px;
+    height: 80px;
+    margin-right: 15px;
+}
+
+/* ================= RIGHT PANEL ================= */
+.right-panel {
+    /* Hapus position fixed & right minus agar menyatu dengan grid container */
+    width: 100%;
+    height: 100%;
+    background: #121212;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    overflow-y: auto;
+    position: relative;
+    /* Penting untuk posisi tombol close absolute */
+}
+
+.right-panel::-webkit-scrollbar {
+    width: 8px;
+}
+
+.right-panel::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.container.show-right-panel .right-panel {
+    right: 0;
+}
+
+#panelCover {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lyrics-card {
+    background: #242424;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.player-left {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#playerThumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.player-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.control-btns {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.ctrl-icon {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.ctrl-icon:hover {
+    color: white;
+    transform: scale(1.2);
+}
+
+.play-btn {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: white;
+    color: black;
+
+    font-size: 20px;
+    line-height: 1;
+
+    padding: 0;
+    /* penting biar gak offset */
+
+    border: none;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.play-btn span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-btn:hover {
+    transform: scale(1.1);
+}
+
+/* ================= EXTRA HOME POLISH ================= */
+
+/* sidebar library */
+.library-section {
+    margin-top: 24px;
+}
+
+.lib-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.lib-header h3 {
+    font-size: 24px;
+    font-weight: 900;
+}
+
+.btn-plus {
+    background: transparent;
+    border: none;
+    color: var(--text-grey);
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-plus:hover {
+    color: white;
+    transform: scale(1.1);
+}
+
+/* pills */
+.lib-btns,
+.categories {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.pill {
+    background: #232323;
+    border: none;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.pill:hover {
+    background: #2e2e2e;
+}
+
+.pill.active {
+    background: white;
+    color: black;
+}
+
+/* section title */
+.section-title,
+#greetingText {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 18px;
+}
+
+/* top mix cards */
+.mix-item span {
+    font-weight: 700;
+    font-size: 15px;
+    padding-right: 10px;
+}
+
+/* username */
+.username-text {
+    font-weight: 700;
+    font-size: 14px;
+}
+
+/* sidebar logo */
+.logo-container span {
+    font-size: 24px;
+    font-weight: 900;
+}
+
+/* better spacing */
+section {
+    margin-bottom: 40px;
+}
+
+/* ================= PROFILE PAGE ================= */
+.profile-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+    padding: 40px 0;
+    margin-bottom: 40px;
+    background: linear-gradient(to bottom, #2a2a2a, #121212);
+    border-radius: 12px;
+    padding: 40px;
+}
+
+.avatar-large {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: var(--spotify-green);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 72px;
+    font-weight: 900;
+    color: #000;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.type-text {
+    font-size: 14px;
+    color: var(--text-grey);
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.profile-info h1 {
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+.profile-btns {
+    display: flex;
+    gap: 14px;
+}
+
+.btn {
+    background: white;
+    color: black;
+    padding: 12px 22px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 900;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    transform: scale(1.04);
+}
+
+.btn-logout {
+    background: #ff4444;
+    color: white;
+}
+
+.playlist-section h2 {
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 20px;
+}
+
+/* Styling Modal Playlist */
+.playlist-modal-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.playlist-modal-content {
+    background: #282828;
+    padding: 20px;
+    border-radius: 8px;
+    width: 320px;
+    color: white;
+}
+
+.create-pl-box {
+    display: flex;
+    margin-top: 10px;
+    gap: 5px;
+}
+
+.create-pl-box input {
+    flex: 1;
+    padding: 5px;
+    background: #3e3e3e;
+    border: none;
+    color: white;
+    border-radius: 4px;
+}
+
+.create-pl-box button {
+    background: #1db954;
+    border: none;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.playlist-option-item {
+    padding: 10px;
+    margin: 5px 0;
+    background: #181818;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+}
+
+.playlist-option-item:hover {
+    background: #333;
+}
+
+.btn-close-modal {
+    width: 100%;
+    background: #1DB954;
+    border: none;
+    color: white;
+    padding: 8px;
+    margin-top: 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* ================= SIDEBAR PLAYLIST LIST ================= */
+.sidebar-playlist-list {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.sidebar-playlist-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    color: var(--text-grey);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.sidebar-playlist-item:hover {
+    background: var(--bg-hover);
+    color: #fff;
+}
+
+.sidebar-playlist-item .icon-folder {
+    font-size: 16px;
+}
+
+/* ================= PLAYLIST DETAIL VIEW (YT MUSIC STYLE) ================= */
+#playlistView {
+    padding: 20px 0;
+}
+
+.playlist-detail-header {
+    display: flex;
+    align-items: flex-end;
+    gap: 28px;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.playlist-cover-large {
+    width: 220px;
+    height: 220px;
+    background: linear-gradient(135deg, #282828 0%, #181818 100%);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 72px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    /* Mencegah gambar overflow */
+}
+
+.playlist-cover-large img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.playlist-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#playlistViewName {
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 1.1;
+    color: #fff;
+}
+
+.playlist-meta-desc {
+    color: var(--text-grey);
+    font-size: 15px;
+}
+
+.playlist-action-bar {
+    display: flex;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.playlist-play-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.playlist-play-btn:hover {
+    transform: scale(1.04);
+}
+
+.playlist-delete-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: #ff4444;
+    border: 1px solid rgba(255, 68, 68, 0.2);
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.playlist-delete-btn:hover {
+    background: rgba(255, 68, 68, 0.1);
+}
+
+/* SONG ROW TABLE STYLE */
+.song-table-header {
+    display: grid;
+    grid-template-columns: 50px 1fr 100px;
+    padding: 10px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-grey);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.playlist-songs-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-row-item {
+    display: grid;
+    grid-template-columns: 50px 1fr 100px;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.song-row-item:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.song-row-item .row-number {
+    color: var(--text-grey);
+    font-weight: bold;
+}
+
+.song-row-item .row-main-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.song-row-item .row-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.song-row-item .row-metadata {
+    display: flex;
+    flex-direction: column;
+}
+
+.song-row-item .row-title {
+    font-weight: 700;
+    color: #fff;
+    font-size: 15px;
+}
+
+.song-row-item .row-artist {
+    font-size: 13px;
+    color: var(--text-grey);
+}
+
+.song-row-item .btn-remove-song {
+    background: transparent;
+    border: none;
+    color: var(--text-grey);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 50%;
+    transition: color 0.2s, background 0.2s;
+}
+
+.song-row-item .btn-remove-song:hover {
+    color: #ff4444;
+    background: rgba(255, 68, 68, 0.1);
+}
+
+/* ================= TRANSISI HALAMAN DINAMIS ================= */
+.view-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.page-view {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: translateY(50px);
+    pointer-events: none;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
+}
+
+/* Ketika class active ditambahkan, dia bergulir naik */
+.page-view.active {
+    position: relative;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* ================= TOMBOL BACK STYLISH ================= */
+.btn-back-stylish {
+    background: transparent;
+    border: none;
+    color: var(--text-grey);
+    font-family: 'Figtree', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 25px;
+    display: inline-flex;
+    align-items: center;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-back-stylish:hover {
+    color: #fff;
+    transform: translateX(-4px);
+}
+
+/* ================= MODAL PLAYLIST BARU (UX STYLISH) ================= */
+.custom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.custom-modal.show {
+    display: flex;
+    opacity: 1;
+}
+
+.custom-modal-content {
+    background: #1e1e1e;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 24px;
+    border-radius: 16px;
+    width: 360px;
+    color: white;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.custom-modal.show .custom-modal-content {
+    transform: scale(1);
+}
+
+.custom-modal-content h3 {
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: 16px;
+}
+
+.modal-input-group {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.modal-input-group input {
+    flex: 1;
+    padding: 12px;
+    background: #2d2d2d;
+    border: 1px solid transparent;
+    color: white;
+    border-radius: 8px;
+    font-family: 'Figtree', sans-serif;
+    font-size: 14px;
+}
+
+.modal-input-group input:focus {
+    border-color: var(--spotify-green);
+    outline: none;
+}
+
+.modal-input-group button {
+    background: var(--spotify-green);
+    border: none;
+    padding: 0 16px;
+    color: black;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Figtree', sans-serif;
+}
+
+.modal-divider {
+    text-align: center;
+    color: var(--text-grey);
+    font-size: 12px;
+    margin: 12px 0;
+    position: relative;
+}
+
+.modal-playlist-options {
+    max-height: 180px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+}
+
+.modal-item-btn {
+    width: 100%;
+    padding: 10px 14px;
+    background: #282828;
+    border: none;
+    color: white;
+    text-align: left;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    font-family: 'Figtree', sans-serif;
+    transition: background 0.2s;
+}
+
+.modal-item-btn:hover {
+    background: #383838;
+}
+
+.modal-close-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Figtree', sans-serif;
+}
+
+/* ================= TOAST NOTIFICATION CONTAINER ================= */
+.toast-container {
+    position: fixed;
+    bottom: 120px;
+    /* Di atas player bar sedikit */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 11000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.custom-toast {
+    background: #181818;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 24px;
+    border-radius: 50px;
+    /* Bentuk kapsul pill */
+    font-family: 'Figtree', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    text-align: center;
+}
+
+.custom-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.playback-bar {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.progress-slider {
+    flex: 1;
+    accent-color: var(--spotify-green);
+    height: 4px;
+    cursor: pointer;
+}
+
+.time {
+    font-size: 11px;
+    color: var(--text-grey);
+}
+
+.player-right {
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.volume-slider {
+    width: 100px;
+    accent-color: var(--spotify-green);
+}
