@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moesica - Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 </head>
+
 <body>
     <div class="auth-container">
         <div class="auth-box">
@@ -13,7 +15,7 @@
                 <img src="{{ url_for('static', filename='logo.png') }}" alt="Moesica">
                 <h2>Moesica</h2>
             </div>
-            
+
             <h1>Masuk ke Moesica</h1>
 
             <form action="/login" method="POST">
@@ -28,36 +30,36 @@
                 </div>
 
                 {% with messages = get_flashed_messages() %}
-                  {% if 'success_login' in messages %}
-                    <div class="success-text-inline">
-                        <span class="dot-pulse"></span> Login Berhasil! Mengalihkan...
-                    </div>
-                    <script>
-                        setTimeout(() => { window.location.href = "/"; }, 1500);
-                    </script>
-                  {% endif %}
+                {% if 'success_login' in messages %}
+                <div class="success-text-inline">
+                    <span class="dot-pulse"></span> Login Berhasil! Mengalihkan...
+                </div>
+                <script>
+                    setTimeout(() => { window.location.href = "/"; }, 1500);
+                </script>
+                {% endif %}
 
-                  {% if 'error_login' in messages %}
-                    <div id="statusModal" class="modal-overlay">
-                        <div class="modal-box popup-card">
-                            <div class="icon-box error">
-                                <svg class="crossmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                                    <circle class="crossmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                                    <path class="crossmark__check" fill="none" d="M16 16 36 36 M36 16 16 36"/>
-                                </svg>
-                            </div>
-                            <h2>Gagal Masuk!</h2>
-                            <p>Cek lagi username & password lu bro.</p>
+                {% if 'error_login' in messages %}
+                <div id="statusModal" class="modal-overlay">
+                    <div class="modal-box popup-card">
+                        <div class="icon-box error">
+                            <svg class="crossmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                                <circle class="crossmark__circle" cx="26" cy="26" r="25" fill="none" />
+                                <path class="crossmark__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
+                            </svg>
                         </div>
+                        <h2>Gagal Masuk!</h2>
+                        <p>Cek lagi username & password lu bro.</p>
                     </div>
-                    <script>
-                        setTimeout(() => {
-                            const modal = document.getElementById('statusModal');
-                            modal.classList.add('fade-out');
-                            setTimeout(() => { modal.style.display = 'none'; }, 500);
-                        }, 2500);
-                    </script>
-                  {% endif %}
+                </div>
+                <script>
+                    setTimeout(() => {
+                        const modal = document.getElementById('statusModal');
+                        modal.classList.add('fade-out');
+                        setTimeout(() => { modal.style.display = 'none'; }, 500);
+                    }, 2500);
+                </script>
+                {% endif %}
                 {% endwith %}
 
                 <button type="submit" class="btn-auth">Log In</button>
@@ -69,4 +71,5 @@
         </div>
     </div>
 </body>
+
 </html>
