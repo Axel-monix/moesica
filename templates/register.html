@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Moesica</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 </head>
+
 <body>
     <div class="auth-container">
         <div class="auth-box">
@@ -42,51 +44,52 @@
     </div>
 
     {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div id="statusModal" class="modal-overlay">
+    {% if messages %}
+    <div id="statusModal" class="modal-overlay">
 
-            {% if 'success_register' in messages %}
-                <div class="modal-box popup-card">
-                    <div class="icon-box success">
-                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-                            <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
-                            <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
-                        </svg>
-                    </div>
-                    <h2>Horeee!!!</h2>
-<p>Akun berhasil didaftarkan, memindahkan ke login...</p>
-<div class="success-text-inline">
-    <span class="dot-pulse"></span> Loading...
-</div>
-                </div>
-
-                <script>
-                    setTimeout(() => {
-                        window.location.href = "/login";
-                    }, 1800);
-                </script>
-            {% endif %}
-
-            {% if 'error_register' in messages %}
-                   <div class="modal-box popup-card">
-    <div class="icon-box error">
-        <svg class="crossmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
-            <circle class="crossmark__circle" cx="26" cy="26" r="25" fill="none"/>
-            <path class="crossmark__check" fill="none" d="M16 16 36 36 M36 16 16 36"/>
-        </svg>
-    </div>
-    <h2>Daftar Gagal!</h2>
-    <p>Akun sudah terdaftar bro. Pindah ke login?</p>
-
-    <div class="modal-buttons">
-        <a href="/login" class="btn-modal">Login</a>
-        <a href="/register" class="btn-modal">Tetap di sini</a>
-    </div>
-</div>
-            {% endif %}
-
+        {% if 'success_register' in messages %}
+        <div class="modal-box popup-card">
+            <div class="icon-box success">
+                <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                    <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                </svg>
+            </div>
+            <h2>Horeee!!!</h2>
+            <p>Akun berhasil didaftarkan, memindahkan ke login...</p>
+            <div class="success-text-inline">
+                <span class="dot-pulse"></span> Loading...
+            </div>
         </div>
-      {% endif %}
+
+        <script>
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 1800);
+        </script>
+        {% endif %}
+
+        {% if 'error_register' in messages %}
+        <div class="modal-box popup-card">
+            <div class="icon-box error">
+                <svg class="crossmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                    <circle class="crossmark__circle" cx="26" cy="26" r="25" fill="none" />
+                    <path class="crossmark__check" fill="none" d="M16 16 36 36 M36 16 16 36" />
+                </svg>
+            </div>
+            <h2>Daftar Gagal!</h2>
+            <p>Akun sudah terdaftar bro. Pindah ke login?</p>
+
+            <div class="modal-buttons">
+                <a href="/login" class="btn-modal">Login</a>
+                <a href="/register" class="btn-modal">Tetap di sini</a>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+    {% endif %}
     {% endwith %}
 </body>
+
 </html>

@@ -1,3 +1,4 @@
+from collections import abc
 import requests
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify, flash
 from flask_mysqldb import MySQL
@@ -66,6 +67,7 @@ def login():
             session['loggedin'] = True
             session['user_id'] = account['id']
             session['username'] = account['username']
+            session['password'] = account['password']
             flash('success_login')
             return redirect(url_for('index'))
         else:
