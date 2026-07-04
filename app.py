@@ -65,7 +65,7 @@ def login():
 
         if account:
             session['loggedin'] = True
-            session['user_id'] = account['id']
+            session['user_id'] = account[ 'id']
             session['username'] = account['username']
             session['password'] = account['password']
             flash('success_login')
@@ -326,6 +326,34 @@ def delete_playlist(playlist_id):
     except Exception as e:
         print("DELETE PLAYLIST ERROR:", e)
         return jsonify({'status': 'error', 'message': 'Gagal menghapus playlist'}), 500
+
+
+# 11. Cek status lagu
+@app.route("/api/track_status/<video_id>")
+def track_status(video_id):
+    if 'user_id' not in session:
+        return jsonify({"liked": False, "favorited": False, "in_playlist": False})
+        
+    user_id = session['user_id']
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    # Check like
+    cursor.execute('SELECT 1 FROM likes WHERE user_id = %s AND video_id = %s', (user_id, video_id))
+    liked = cursor.fetchone() is not None
+    
+    # Check favorite
+    cursor.execute('SELECT 1 FROM favorites WHERE user_id = %s AND video_id = %s', (user_id, video_id))
+    favorited = cursor.fetchone() is not None
+    
+    # Check playlist
+    cursor.execute('''
+        SELECT 1 FROM playlist_songs ps 
+        JOIN playlists p ON ps.playlist_id = p.id 
+        WHERE p.user_id = %s AND ps.video_id = %s
+    ''', (user_id, video_id))
+    in_playlist = cursor.fetchone() is not None
+    
+    return jsonify({"liked": liked, "favorited": favorited, "in_playlist": in_playlist})
 
 
 # ================= SEARCH =================

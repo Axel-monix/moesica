@@ -416,6 +416,22 @@ async function playSong(videoId, title, thumbnail) {
     document.getElementById("expandedCover").src = thumbnail;
     document.getElementById("expandedTitle").textContent = title;
 
+    const iconLike = document.getElementById("iconLike");
+    const iconFav = document.getElementById("iconFav");
+    const iconPlaylist = document.getElementById("iconPlaylist");
+    if (iconLike) iconLike.setAttribute("data-icon", "mdi:heart");
+    if (iconFav) iconFav.setAttribute("data-icon", "mdi:star");
+    if (iconPlaylist) iconPlaylist.setAttribute("data-icon", "mdi:plus");
+
+    fetch(`/api/track_status/${videoId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.liked && iconLike) iconLike.setAttribute("data-icon", "mdi:heart-broken");
+            if (data.favorited && iconFav) iconFav.setAttribute("data-icon", "mdi:star-off");
+            if (data.in_playlist && iconPlaylist) iconPlaylist.setAttribute("data-icon", "mdi:minus");
+        })
+        .catch(err => console.error("Error fetching track status:", err));
+
     playerBar.classList.add("active");
     playerThumb.src = thumbnail;
     playerTitle.textContent = title;
@@ -810,7 +826,14 @@ async function toggleLike() {
             body: JSON.stringify(currentTrackData)
         });
         const d = await res.json();
-        showToast(d.action === 'liked' ? "Ditambahkan ke Lagu Disukai ❤️" : "Dihapus dari Lagu Disukai 💔");
+        const iconLike = document.getElementById("iconLike");
+        if (d.action === 'liked') {
+            showToast("Ditambahkan ke Lagu Disukai ❤️");
+            if (iconLike) iconLike.setAttribute("data-icon", "mdi:heart-broken");
+        } else {
+            showToast("Dihapus dari Lagu Disukai 💔");
+            if (iconLike) iconLike.setAttribute("data-icon", "mdi:heart");
+        }
     } catch (err) { console.error(err); }
 }
 
@@ -823,7 +846,14 @@ async function toggleFav() {
             body: JSON.stringify(currentTrackData)
         });
         const d = await res.json();
-        showToast(d.action === 'favorited' ? "Ditambahkan ke Favorit ⭐" : "Dihapus dari Favorit 🗑️");
+        const iconFav = document.getElementById("iconFav");
+        if (d.action === 'favorited') {
+            showToast("Ditambahkan ke Favorit ⭐");
+            if (iconFav) iconFav.setAttribute("data-icon", "mdi:star-off");
+        } else {
+            showToast("Dihapus dari Favorit 🗑️");
+            if (iconFav) iconFav.setAttribute("data-icon", "mdi:star");
+        }
     } catch (err) { console.error(err); }
 }
 
@@ -886,6 +916,8 @@ async function submitNewPlaylistWithSong() {
                     })
                 });
                 showToast(`Playlist "${name}" dibuat & lagu ditambahkan! 🚀`);
+                const iconPlaylist = document.getElementById("iconPlaylist");
+                if (iconPlaylist) iconPlaylist.setAttribute("data-icon", "mdi:minus");
             } else {
                 showToast(`Playlist "${name}" berhasil dibuat! 📁`);
             }
@@ -911,6 +943,8 @@ async function addSongToExistingPlaylist(playlistId, playlistName) {
         });
         const data = await res.json();
         showToast(`Lagu ditambahkan ke ${playlistName}! ✅`);
+        const iconPlaylist = document.getElementById("iconPlaylist");
+        if (iconPlaylist) iconPlaylist.setAttribute("data-icon", "mdi:minus");
         closeCustomModal();
     } catch (err) { console.error(err); }
 }

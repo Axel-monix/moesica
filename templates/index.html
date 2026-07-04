@@ -29,6 +29,7 @@ source code ini tanpa izin tertulis dari pemilik sah.
             font-family: sans-serif;
         }
     </style>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
 </head>
 
 <body>
@@ -209,10 +210,10 @@ source code ini tanpa izin tertulis dari pemilik sah.
                     <p id="expandedArtist" style="color: #b3b3b3; margin-bottom: 20px;">Artist Name</p>
 
                     <div class="expanded-actions">
-                        <button class="action-btn" title="Like" onclick="toggleLike()"><i>❤️</i></button>
-                        <button class="action-btn" title="Favorite" onclick="toggleFav()"><i>⭐</i></button>
-                        <button class="action-btn" title="Add to Playlist"
-                            onclick="openCreatePlaylistModal()"><i>➕</i></button>
+                        <button class="action-btn" id="btnLike" title="Like" onclick="toggleLike()"><i><span class="iconify" id="iconLike" data-icon="mdi:heart"></span></i></button>
+                        <button class="action-btn" id="btnFav" title="Favorite" onclick="toggleFav()"><i><span class="iconify" id="iconFav" data-icon="mdi:star"></span></i></button>
+                        <button class="action-btn" id="btnPlaylist" title="Add to Playlist"
+                            onclick="openCreatePlaylistModal()"><i><span class="iconify" id="iconPlaylist" data-icon="mdi:plus"></span></i></button>
                     </div>
                 </div>
             </div>
