@@ -128,6 +128,115 @@ function backToHome() {
     loadTopMix();
 }
 
+async function showProfile() {
+    switchView("profilePage");
+
+    // Hapus status aktif tombol pill sidebar
+    document.querySelectorAll(".sidebar .pill").forEach(p => p.classList.remove("active"));
+
+    try {
+        // Load Playlists
+        const pRes = await fetch('/api/user_playlists');
+        const playlists = await pRes.json();
+        const pContainer = document.getElementById("profilePlaylists");
+        if (pContainer) {
+            pContainer.innerHTML = "";
+            if (playlists.length === 0) {
+                pContainer.innerHTML = `<p style="color: #b3b3b3; grid-column: 1/-1;">Belum ada playlist.</p>`;
+            } else {
+                playlists.forEach(pl => {
+                    const card = document.createElement("div");
+                    card.className = "music-card";
+                    card.innerHTML = `
+                        <div class="img-wrap" style="background: #282828; aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 64px; cursor: pointer;">
+                            📁
+                        </div>
+                        <p style="margin-top: 12px; cursor: pointer;"><strong>${pl.name}</strong></p>
+                    `;
+                    card.onclick = () => loadPlaylistDetailView(pl.id, pl.name, "profilePage");
+                    pContainer.appendChild(card);
+                });
+            }
+        }
+
+        // Load Liked Songs
+        const lRes = await fetch('/api/liked_songs');
+        const liked = await lRes.json();
+        const lContainer = document.getElementById("profileLiked");
+        if (lContainer) {
+            lContainer.innerHTML = "";
+            if (liked.length === 0) {
+                lContainer.innerHTML = `<p style="color: #b3b3b3; grid-column: 1/-1;">Belum ada lagu disukai.</p>`;
+            } else {
+                liked.slice(0, 10).forEach((song, idx) => {
+                    const card = document.createElement("div");
+                    card.className = "music-card";
+                    const thumb = song.thumbnail || song.thumbnail_url || `https://img.youtube.com/vi/${song.video_id}/mqdefault.jpg`;
+                    card.innerHTML = `
+                        <div class="img-wrap">
+                            <img src="${thumb}">
+                            <div class="play-overlay">▶</div>
+                        </div>
+                        <p><strong>${song.title}</strong></p>
+                    `;
+                    card.querySelector(".play-overlay").onclick = (e) => {
+                        e.stopPropagation();
+                        currentQueue = liked;
+                        currentIndex = idx;
+                        playSongFromQueue();
+                    };
+                    card.querySelector("img").ondblclick = (e) => {
+                        e.stopPropagation();
+                        currentQueue = liked;
+                        currentIndex = idx;
+                        playSongFromQueue();
+                    };
+                    lContainer.appendChild(card);
+                });
+            }
+        }
+
+        // Load Favorite Songs
+        const fRes = await fetch('/api/favorite_songs');
+        const fav = await fRes.json();
+        const fContainer = document.getElementById("profileFav");
+        if (fContainer) {
+            fContainer.innerHTML = "";
+            if (fav.length === 0) {
+                fContainer.innerHTML = `<p style="color: #b3b3b3; grid-column: 1/-1;">Belum ada lagu favorit.</p>`;
+            } else {
+                fav.slice(0, 10).forEach((song, idx) => {
+                    const card = document.createElement("div");
+                    card.className = "music-card";
+                    const thumb = song.thumbnail || song.thumbnail_url || `https://img.youtube.com/vi/${song.video_id}/mqdefault.jpg`;
+                    card.innerHTML = `
+                        <div class="img-wrap">
+                            <img src="${thumb}">
+                            <div class="play-overlay">▶</div>
+                        </div>
+                        <p><strong>${song.title}</strong></p>
+                    `;
+                    card.querySelector(".play-overlay").onclick = (e) => {
+                        e.stopPropagation();
+                        currentQueue = fav;
+                        currentIndex = idx;
+                        playSongFromQueue();
+                    };
+                    card.querySelector("img").ondblclick = (e) => {
+                        e.stopPropagation();
+                        currentQueue = fav;
+                        currentIndex = idx;
+                        playSongFromQueue();
+                    };
+                    fContainer.appendChild(card);
+                });
+            }
+        }
+    } catch (err) {
+        console.error("Gagal memuat profil:", err);
+    }
+}
+
 // ================= MENU BARU DI SIDEBAR KIRI: LIKED & FAVORITES =================
 async function loadLikedSongsView() {
     switchView("playlistView");
@@ -279,7 +388,18 @@ function renderSongRows(songs) {
 }
 
 // ================= TAMPILKAN DETAIL ISI PLAYLIST =================
-async function loadPlaylistDetailView(playlistId, playlistName) {
+let playlistSourceView = "playlistsListView";
+
+function goBackFromPlaylist() {
+    if (playlistSourceView === "profilePage") {
+        showProfile();
+    } else {
+        loadPlaylistsMainView();
+    }
+}
+
+async function loadPlaylistDetailView(playlistId, playlistName, source = "playlistsListView") {
+    playlistSourceView = source;
     activePlaylistId = playlistId;
     switchView("playlistView");
 
@@ -798,7 +918,17 @@ function updateGreeting() {
     const el = document.getElementById("greetingText");
     if (!el) return;
     const hour = new Date().getHours();
-    el.textContent = hour < 12 ? "Good Morning ☀️" : hour < 18 ? "Good Afternoon 🌤️" : "Good Evening 🌙";
+    
+    // Waktu Indonesia: Pagi (0-10), Siang (11-14), Sore (15-18), Malam (19-23)
+    if (hour >= 0 && hour < 11) {
+        el.textContent = "Good Morning 🌅";
+    } else if (hour >= 11 && hour < 15) {
+        el.textContent = "Good Afternoon ☀️";
+    } else if (hour >= 15 && hour < 19) {
+        el.textContent = "Good Evening 🌇";
+    } else {
+        el.textContent = "Good Night 🌙";
+    }
 }
 
 // ================= CUSTOM TOAST NOTIFICATION =================

@@ -46,7 +46,11 @@ def safe_get_json(url, params=None):
 @app.route('/')
 def index():
     if 'loggedin' in session:
-        return render_template('index.html', username=session['username'])
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute('SELECT email FROM users WHERE id = %s', (session['user_id'],))
+        user = cursor.fetchone()
+        email = user['email'] if user else ''
+        return render_template('index.html', username=session['username'], email=email)
     return redirect(url_for('login'))
 
 

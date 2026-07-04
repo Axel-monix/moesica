@@ -106,6 +106,10 @@ source code ini tanpa izin tertulis dari pemilik sah.
                 </div>
 
                 <div id="playlistView" class="page-view" style="display: none;">
+                    <button onclick="goBackFromPlaylist()" style="background: transparent; border: none; color: #b3b3b3; font-size: 24px; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-bottom: 16px; transition: color 0.2s;">
+                        <span class="iconify" data-icon="mdi:arrow-left"></span>
+                        <span style="font-size: 16px; font-weight: bold;">Back</span>
+                    </button>
                     <div class="playlist-detail-header">
                         <div class="playlist-cover-large">
                             <img id="playlistViewCoverImg" src="" alt="Playlist Cover"
@@ -132,17 +136,29 @@ source code ini tanpa izin tertulis dari pemilik sah.
                     </div>
                 </div>
 
-                <div id="profilePage" class="page-view" style="display: none;">
+                <div id="profilePage" class="page-view" style="display: none; padding-bottom: 50px;">
                     <div class="profile-header">
                         <div class="avatar-large">{{ username[0] | upper }}</div>
                         <div class="profile-info">
                             <p class="type-text">Profile</p>
                             <h1>{{ username }}</h1>
+                            <p style="color: #b3b3b3; margin-top: -10px; margin-bottom: 20px;">{{ email }}</p>
                             <div class="profile-btns">
                                 <button class="btn active" onclick="backToHome()">Back to Home</button>
                                 <a href="/logout" class="btn btn-logout">Logout</a>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="profile-content" style="margin-top: 40px;">
+                        <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Your Playlists</h2>
+                        <div class="music-grid" id="profilePlaylists"></div>
+
+                        <h2 style="font-size: 24px; font-weight: bold; margin-top: 40px; margin-bottom: 20px;">Liked Songs</h2>
+                        <div class="music-grid" id="profileLiked"></div>
+
+                        <h2 style="font-size: 24px; font-weight: bold; margin-top: 40px; margin-bottom: 20px;">Favorite Songs</h2>
+                        <div class="music-grid" id="profileFav"></div>
                     </div>
                 </div>
 
