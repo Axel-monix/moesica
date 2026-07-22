@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $user = "root";
-$pass = ""; // Default Laragon biasanya kosong
+$pass = ""; 
 $db   = "db_moesica";
 
 $conn = mysqli_connect($host, $user, $pass, $db);
